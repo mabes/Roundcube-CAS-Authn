@@ -173,10 +173,9 @@ class cas_authn extends rcube_plugin {
             else {
                 // initialize CAS client
                 $this->cas_init();
-				// If PT expired we check the authentication to load all auth infos wich lays in session
-				if ($ptExpired) {
-					phpCAS::checkAuthentication();
-				}       
+
+                // Ensure the phpCAS client is up to date with session info before retrieving a new PT
+                phpCAS::checkAuthentication();
 
                 // if CAS session exists, use that.
                 // retrieve a new proxy ticket and store it in session
